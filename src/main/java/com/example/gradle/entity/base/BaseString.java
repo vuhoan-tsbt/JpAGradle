@@ -1,33 +1,23 @@
 package com.example.gradle.entity.base;
 
-import com.example.gradle.entity.User;
-import lombok.Data;
 
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Objects;
+import java.time.LocalDateTime;
 @Data
 @MappedSuperclass
-public class BaseString implements Serializable {
+public abstract class BaseString implements Serializable {
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GenericGenerator(name = "increment", strategy = "increment")
+    private int id;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        BaseString that = (BaseString) o;
-        return Objects.equals(id, that.id);
-    }
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
+    @Column(name = "updated_at")
+    private LocalDateTime updateAt;
 
-    @Override
-    public String toString() {
-        return "BaseString{" +
-                "id=" + id + "}";
-    }
 }

@@ -1,4 +1,26 @@
 package com.example.gradle.entity;
 
-public class Degree {
+import com.example.gradle.entity.base.BaseString;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
+
+
+import javax.persistence.*;
+
+@EqualsAndHashCode(callSuper = true)
+@Entity
+@Data
+@Accessors(chain = true)
+@Table(name = "degree")
+@NoArgsConstructor
+@AllArgsConstructor
+public class Degree extends BaseString {
+
+    @Column(name="name")
+    private String name;
+    @Column(name="value")
+    private Integer value;
 }
