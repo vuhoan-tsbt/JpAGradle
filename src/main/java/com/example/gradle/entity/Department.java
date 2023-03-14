@@ -3,11 +3,13 @@ package com.example.gradle.entity;
 import com.example.gradle.entity.base.BaseString;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import javax.persistence.*;
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
 @Accessors(chain = true)
