@@ -20,6 +20,6 @@ public class Department extends BaseString {
     @Column(name="name")
     private String name;
     @Column(name="value")
-    private Integer value;
+    private Float value;
 
 }

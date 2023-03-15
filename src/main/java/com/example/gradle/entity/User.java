@@ -1,14 +1,13 @@
 package com.example.gradle.entity;
 
 import com.example.gradle.entity.base.BaseString;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -48,17 +47,21 @@ public class User extends BaseString {
     @Column(name = "updated_at")
     private LocalDateTime updateAt;
 
-    @Column(name = "value_department")
-    private Integer value;
+    @ManyToOne
+    @JsonIgnore
+    @JoinColumn(name = "department_id")
+    private Department departmentId;
 
-    @Column(name = "department")
-    private String department;
+    @Column(name = "department_name")
+    private String departmentName;
 
-    @Column(name = "value_degree")
-    private Integer valueDegree;
+    @ManyToOne
+    @JsonIgnore
+    @JoinColumn(name = "degree_id")
+    private Degree degreeId;
 
     @Column(name = "degree")
-    private String degree;
+    private String degreeName;
 
     @Column(name = "bank_name")
     private String bankName;
