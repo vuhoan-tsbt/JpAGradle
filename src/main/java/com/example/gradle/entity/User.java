@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -18,6 +19,10 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 public class User extends BaseString {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GenericGenerator(name = "increment", strategy = "increment")
+    private Integer id;
     @Column(name = "user_code", length = 12)
     private String userCode;
     @Column(name = "first_name")
@@ -46,22 +51,6 @@ public class User extends BaseString {
 
     @Column(name = "updated_at")
     private LocalDateTime updateAt;
-
-    @ManyToOne
-    @JsonIgnore
-    @JoinColumn(name = "department_id")
-    private Department departmentId;
-
-    @Column(name = "department_name")
-    private String departmentName;
-
-    @ManyToOne
-    @JsonIgnore
-    @JoinColumn(name = "degree_id")
-    private Degree degreeId;
-
-    @Column(name = "degree")
-    private String degreeName;
 
     @Column(name = "bank_name")
     private String bankName;

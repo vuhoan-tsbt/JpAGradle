@@ -5,6 +5,4 @@ import com.example.gradle.model.response.IdResponse;
 
 public interface DegreeService {
     IdResponse createDegree(CreateDegreeRequest input);
-
-
 }

@@ -6,6 +6,8 @@ import com.example.gradle.model.request.CreateDegreeRequest;
 import com.example.gradle.model.response.IdResponse;
 import com.example.gradle.repository.DegreeRepository;
 import com.example.gradle.service.DegreeService;
+import com.example.gradle.utils.ErrorCode;
+import com.example.gradle.utils.ErrorMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -22,7 +24,7 @@ public class DegreeServiceImpl implements DegreeService {
     public IdResponse createDegree(CreateDegreeRequest input) {
         Optional<Degree> degree = degreeRepository.getByName(input.getName());
         if(degree.isPresent()){
-            throw new ServiceApiException("Error_01","Bằng cấp đã tồn tại");
+            throw new ServiceApiException(ErrorCode.ERROR01, ErrorMessage.MESSAGE01);
         }
         Degree response = new Degree();
         response.setName(input.getName());

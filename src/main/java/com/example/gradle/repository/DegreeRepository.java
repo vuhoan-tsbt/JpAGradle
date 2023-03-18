@@ -11,4 +11,9 @@ import java.util.Optional;
 public interface DegreeRepository extends JpaRepository<Degree, Integer> {
     @Query("select d from Degree d where d.name= :name")
     Optional<Degree> getByName(String name);
+
+    @Query("select d from Degree d where d.name= :name and d.id=:id and d.value=:value ")
+    Optional<Degree> getByDegree(String name, Integer id, Float value);
+
+
 }

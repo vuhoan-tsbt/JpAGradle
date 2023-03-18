@@ -6,6 +6,8 @@ import com.example.gradle.model.request.CreateDegreeRequest;
 import com.example.gradle.model.response.IdResponse;
 import com.example.gradle.repository.DepartmentRepository;
 import com.example.gradle.service.DepartmentService;
+import com.example.gradle.utils.ErrorCode;
+import com.example.gradle.utils.ErrorMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -22,7 +24,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     public IdResponse createDepartment(CreateDegreeRequest input) {
         Optional<Department> optional = departmentRepository.getByNameDepartment(input.getName());
         if (optional.isPresent()){
-            throw new ServiceApiException("Error_02","Phòng ban chức vụ này đã tồn tại");
+            throw new ServiceApiException(ErrorCode.ERROR02, ErrorMessage.MESSAGE02);
         }
         Department department = new Department();
         department.setName(input.getName());

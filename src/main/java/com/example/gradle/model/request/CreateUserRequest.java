@@ -17,10 +17,6 @@ public class CreateUserRequest {
     private String accountNumber;
     private String dateOfBirth;
     private String accountType;
-    private String userCode;
-    private String department;
-    private Integer value;
-    private String Degree;
-    private Integer valueDegree;
     private String taxCode;
+    private String userCode;
 }
