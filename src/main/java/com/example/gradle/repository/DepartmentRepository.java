@@ -13,6 +13,6 @@ public interface DepartmentRepository extends JpaRepository<Department, Integer>
     @Query("select d from Department d where d.name =:name")
     Optional<Department> getByNameDepartment(String name);
 
-    @Query("select d from Department d where d.name= :name and d.id=:id and d.value=:value ")
-    Optional<Department> getByDepartment(String name, Integer id, Float value);
+    @Query("select d from Department d where d.id=:id")
+    Optional<Department> getByIdDepartment(Integer id);
 }

@@ -1,10 +1,15 @@
 package com.example.gradle.service.impl;
 
 import com.example.gradle.entity.Department;
+import com.example.gradle.entity.User;
+import com.example.gradle.entity.UserDepartment;
 import com.example.gradle.exceptions.ServiceApiException;
 import com.example.gradle.model.request.CreateDegreeRequest;
+import com.example.gradle.model.request.CreateUserDepartmentRequest;
 import com.example.gradle.model.response.IdResponse;
 import com.example.gradle.repository.DepartmentRepository;
+import com.example.gradle.repository.UserDepartmentRepository;
+import com.example.gradle.repository.UserRepository;
 import com.example.gradle.service.DepartmentService;
 import com.example.gradle.utils.ErrorCode;
 import com.example.gradle.utils.ErrorMessage;
@@ -12,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -20,7 +26,11 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class DepartmentServiceImpl implements DepartmentService {
     private final DepartmentRepository departmentRepository;
+    private final UserRepository userRepository;
+    private final UserDepartmentRepository userDepartmentRepository;
+
     @Override
+    @Transactional
     public IdResponse createDepartment(CreateDegreeRequest input) {
         Optional<Department> optional = departmentRepository.getByNameDepartment(input.getName());
         if (optional.isPresent()){
@@ -32,5 +42,25 @@ public class DepartmentServiceImpl implements DepartmentService {
         department.setCreatedAt(LocalDateTime.now());
         departmentRepository.save(department);
         return new IdResponse(department.getId());
+    }
+
+    @Override
+    @Transactional
+    public IdResponse createDepartmentUser(CreateUserDepartmentRequest input) {
+        Optional<Department> department = departmentRepository.getByIdDepartment(input.getDepartmentId());
+        if (department.isEmpty()){
+            throw new ServiceApiException(ErrorCode.ERROR05,ErrorMessage.MESSAGE05);
+        }
+        Optional<User> optional = userRepository.getByUserId(input.getUserId());
+        if (optional.isEmpty()){
+            throw new ServiceApiException(ErrorCode.ERROR06,ErrorMessage.MESSAGE06);
+        }
+        UserDepartment userDepartment = new UserDepartment();
+        userDepartment.setUsers(optional.get());
+        userDepartment.setTypeDepartment(department.get());
+        userDepartment.setName(input.getNameDepartment());
+        userDepartment.setCreatedAt(LocalDateTime.now());
+        userDepartmentRepository.save(userDepartment);
+        return new IdResponse(userDepartment.getId());
     }
 }

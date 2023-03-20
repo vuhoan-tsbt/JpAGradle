@@ -27,6 +27,6 @@ public class UserDepartment extends BaseString {
     private User users;
 
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
-    @JoinColumn(name = "type_department_id", updatable = false, insertable = false)
+    @JoinColumn(name = "type_department_id")
     private Department typeDepartment;
 }

@@ -5,29 +5,25 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+
 @EqualsAndHashCode(callSuper = true)
-@Data
 @Entity
-@Table(name = "user_degree")
+@Data
+@Accessors(chain = true)
+@Table(name = "department")
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDegree extends BaseString {
+public class Department extends BaseString {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @GenericGenerator(name = "increment", strategy = "increment")
     private Integer id;
-
-    @Column(name = "name")
+    @Column(name="name")
     private String name;
-
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
-    @JoinColumn(name = "user_id")
-    private User users;
-
-    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
-    @JoinColumn(name = "type_degree_id")
-    private Degree typeDegree;
+    @Column(name="value")
+    private Float value;
 }

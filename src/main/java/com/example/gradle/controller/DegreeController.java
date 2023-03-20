@@ -1,6 +1,7 @@
 package com.example.gradle.controller;
 
 import com.example.gradle.model.request.CreateDegreeRequest;
+import com.example.gradle.model.request.CreateUserDegreeRequest;
 import com.example.gradle.service.DegreeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -20,6 +21,10 @@ public class DegreeController {
     @PostMapping("/create")
     public ResponseEntity<?> createDegree(@RequestBody @Valid CreateDegreeRequest input){
         return ResponseEntity.ok(degreeService.createDegree(input));
+    }
+    @PostMapping("/create-user-degree")
+    public ResponseEntity<?> createUserDegree(@RequestBody @Valid CreateUserDegreeRequest input){
+        return ResponseEntity.ok(degreeService.createUserDegree(input));
     }
 
 }
