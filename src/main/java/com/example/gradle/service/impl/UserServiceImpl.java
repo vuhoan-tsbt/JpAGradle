@@ -1,16 +1,11 @@
 package com.example.gradle.service.impl;
 
-import com.example.gradle.entity.Degree;
-import com.example.gradle.entity.Department;
 import com.example.gradle.entity.User;
 import com.example.gradle.exceptions.ServiceApiException;
 import com.example.gradle.model.request.CreateUserRequest;
 import com.example.gradle.model.response.IdResponse;
-import com.example.gradle.repository.DegreeRepository;
-import com.example.gradle.repository.DepartmentRepository;
 import com.example.gradle.repository.UserRepository;
 import com.example.gradle.service.UserService;
-import com.example.gradle.utils.BankUtils;
 import com.example.gradle.utils.ErrorCode;
 import com.example.gradle.utils.ErrorMessage;
 import lombok.RequiredArgsConstructor;
@@ -18,9 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
