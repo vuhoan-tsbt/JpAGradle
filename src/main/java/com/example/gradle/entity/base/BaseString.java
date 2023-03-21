@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 public abstract class BaseString implements Serializable {
 
 
-    @Column(name = "created_at")
+    @Column(name = "created_at",updatable = false )
     private LocalDateTime createdAt;
     @Column(name = "updated_at")
     private LocalDateTime updateAt;

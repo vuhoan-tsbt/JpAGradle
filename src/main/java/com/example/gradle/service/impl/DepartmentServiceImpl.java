@@ -81,8 +81,8 @@ public class DepartmentServiceImpl implements DepartmentService {
         userDepartment.get().setUsers(optional.get());
         userDepartment.get().setTypeDepartment(department.get());
         userDepartment.get().setName(input.getNameDepartment());
-        userDepartment.get().setCreatedAt(optional.get().getCreatedAt());
         userDepartment.get().setUpdateAt(LocalDateTime.now());
+        userDepartmentRepository.save(userDepartment.get());
         return new IdResponse(userDepartment.get().getId());
     }
 }
