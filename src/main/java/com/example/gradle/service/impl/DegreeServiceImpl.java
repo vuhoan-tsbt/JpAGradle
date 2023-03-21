@@ -28,11 +28,12 @@ public class DegreeServiceImpl implements DegreeService {
     private final DegreeRepository degreeRepository;
     private final UserDegreeRepository userDegreeRepository;
     private final UserRepository userRepository;
+
     @Override
     @Transactional
     public IdResponse createDegree(CreateDegreeRequest input) {
         Optional<Degree> degree = degreeRepository.getByName(input.getName());
-        if(degree.isPresent()){
+        if (degree.isPresent()) {
             throw new ServiceApiException(ErrorCode.ERROR01, ErrorMessage.MESSAGE01);
         }
         Degree response = new Degree();
@@ -47,12 +48,12 @@ public class DegreeServiceImpl implements DegreeService {
     @Transactional
     public IdResponse createUserDegree(CreateUserDegreeRequest input) {
         Optional<User> optional = userRepository.getByUserId(input.getUserId());
-        if (optional.isEmpty()){
-            throw new ServiceApiException(ErrorCode.ERROR06,ErrorMessage.MESSAGE06);
+        if (optional.isEmpty()) {
+            throw new ServiceApiException(ErrorCode.ERROR06, ErrorMessage.MESSAGE06);
         }
         Optional<Degree> optionalDegree = degreeRepository.getByIdDegree(input.getDegreeId());
-        if (optionalDegree.isEmpty()){
-            throw new ServiceApiException(ErrorCode.ERROR04,ErrorMessage.MESSAGE04);
+        if (optionalDegree.isEmpty()) {
+            throw new ServiceApiException(ErrorCode.ERROR04, ErrorMessage.MESSAGE04);
         }
         UserDegree degree = new UserDegree();
         degree.setUsers(optional.get());
@@ -61,5 +62,28 @@ public class DegreeServiceImpl implements DegreeService {
         degree.setCreatedAt(LocalDateTime.now());
         userDegreeRepository.save(degree);
         return new IdResponse(degree.getId());
+    }
+
+    @Override
+    public IdResponse updateUserDegree(Integer id, CreateUserDegreeRequest input) {
+        Optional<UserDegree> optional = userDegreeRepository.getByIdUserDegree(id);
+        if (optional.isEmpty()) {
+            throw new ServiceApiException(ErrorCode.ERROR07, ErrorMessage.MESSAGE07);
+        }
+        Optional<User> optionalUser = userRepository.getByUserId(input.getUserId());
+        if (optional.isEmpty()) {
+            throw new ServiceApiException(ErrorCode.ERROR06, ErrorMessage.MESSAGE06);
+        }
+        Optional<Degree> optionalDegree = degreeRepository.getByIdDegree(input.getDegreeId());
+        if (optionalDegree.isEmpty()) {
+            throw new ServiceApiException(ErrorCode.ERROR04, ErrorMessage.MESSAGE04);
+        }
+        optional.get().setTypeDegree(optionalDegree.get());
+        optional.get().setName(input.getNameDegree());
+        optional.get().setUsers(optionalUser.get());
+        optional.get().setUpdateAt(LocalDateTime.now());
+        optional.get().setCreatedAt(optional.get().getCreatedAt());
+        userDegreeRepository.save(optional.get());
+        return new IdResponse(optional.get().getId());
     }
 }

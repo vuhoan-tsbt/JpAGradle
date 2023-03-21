@@ -8,4 +8,6 @@ public interface DegreeService {
     IdResponse createDegree(CreateDegreeRequest input);
 
     IdResponse createUserDegree(CreateUserDegreeRequest input);
+
+    IdResponse updateUserDegree(Integer id, CreateUserDegreeRequest input);
 }

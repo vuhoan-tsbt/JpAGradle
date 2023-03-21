@@ -6,10 +6,7 @@ import com.example.gradle.service.DegreeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -25,6 +22,10 @@ public class DegreeController {
     @PostMapping("/create-user-degree")
     public ResponseEntity<?> createUserDegree(@RequestBody @Valid CreateUserDegreeRequest input){
         return ResponseEntity.ok(degreeService.createUserDegree(input));
+    }
+    @PutMapping("/update-user-degree/{id}")
+    public ResponseEntity<?> updateUserDegree(@PathVariable final Integer id,@RequestBody @Valid CreateUserDegreeRequest input){
+        return ResponseEntity.ok(degreeService.updateUserDegree(id,input));
     }
 
 }

@@ -6,10 +6,7 @@ import com.example.gradle.service.DepartmentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -25,5 +22,9 @@ public class DepartmentController {
     @PostMapping("/create-department-user")
     public ResponseEntity<?> createDepartmentUser(@RequestBody @Valid CreateUserDepartmentRequest input){
         return ResponseEntity.ok(service.createDepartmentUser(input));
+    }
+    @PutMapping("/update-department-user/{id}")
+    public ResponseEntity<?> updateDepartmentUser(@PathVariable final Integer id,@RequestBody @Valid CreateUserDepartmentRequest input){
+        return ResponseEntity.ok(service.updateUserDepartment(id,input));
     }
 }
